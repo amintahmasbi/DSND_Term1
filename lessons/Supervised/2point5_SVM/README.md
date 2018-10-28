@@ -5,11 +5,19 @@ SVMs attempts to maximize the distance from the linear boundary to the closest p
 SVMs can be implemented in three different ways:
 
 1. Maximum Margin Classifier
+
    - linear version for separable data
+
+   - ```python
+     from sklearn.svm import LinearSVC
+     svc = LinearSVC(C=1.0)
+     ```
 2. Classification with Inseparable Classes
+
    - C parameter to tune
 3. Kernel Methods
    - nonlinear boundaries
+   - C parameter to tune
    - Two types: 
      - polynomial: Tune `degree`
      - rbf: Tune `gamma`
@@ -39,8 +47,18 @@ Kernels in SVMs allow us the ability to separate data when the boundary between 
 feature mapping: maps from attributes to features. e.g., $\phi(x)=[x,x^2,x^3]$
 
 - _Polynomial kernel_: include the polynomial combination of attributes (original inputs) ($x, y$) which increases the dimension of the problem but may solve it (adding $x^2, y^2, xy$ features for second degree). 
+
   - _Note_: The degree of polynomial is a hyper-parameter 
-- __RBF Kernel__: Radial Basis Function which puts a normal distribution times a coefficient (figures below) on top of each sample point (feature mapping is a density function) and add them up, so it can separate the classes, and the classification region is the union of these ellipse-like kernels.![RBF Concept](./NotesImages/RBF_Kernel_1.png)
+
+- __RBF Kernel__: Radial Basis Function which puts a pseudo-normal distribution (without normalizing term) times a coefficient (figures below) on top of each sample point (feature mapping is a density function, based on the squared Euclidean distance between two data points) and add them up, so it can separate the classes, and the classification region is the union of these ellipse-like kernels.
+
+- $$
+  RBF(x,x') = \exp(-\frac{||x-x'||^2}{2\sigma^2}) 
+  $$
+
+- 
+
+- ![RBF Concept](./NotesImages/RBF_Kernel_1.png)
 
 ![RBF_Kernel_2](./NotesImages/RBF_Kernel_2.png)
 
@@ -50,6 +68,7 @@ feature mapping: maps from attributes to features. e.g., $\phi(x)=[x,x^2,x^3]$
   $$
   \gamma = \frac{1}{2\sigma^2}
   $$
+
 
 
 
@@ -67,12 +86,39 @@ _Note_: in higher dimensions the formula for this parameter becomes more complic
 from sklearn.svm import SVC
 model = SVC()
 model.fit(x_values, y_values)
+# View support vectors
+model.support_vectors_
+# View indices of support vectors
+model.support_
+# View number of support vectors for each class
+model.n_support_
 ```
 
 Hyper-parameters:
 
-- `C`: The C parameter.
+- `C`: The C parameter. Importance of misclassification
 - `kernel`: The kernel. The most common ones are 'linear', 'poly', and 'rbf'.
 - `degree`: If the kernel is polynomial, this is the maximum degree of the monomials in the kernel.
 - `gamma` : If the kernel is rbf, this is the gamma parameter.
+
+#### Calibrate Predicted Probabilities In SVC
+
+SVC’s use of a hyperplane to create decision regions do not naturally output a probability estimate that an observation is a member of a certain class. However, we can in fact output calibrated class probabilities with a few caveats. In an SVC, **Platt scaling** can be used, wherein first the SVC is trained, then a separate cross-validated logistic regression is trained to map the SVC outputs into probabilities
+
+```python
+# Create support vector classifier object
+svc = SVC(kernel='linear', probability=True)
+```
+
+#### Imbalanced Classes In SVM
+
+In support vector machines, C
+is a hyperparameter determining the penalty for misclassifying an observation. One method for handling imbalanced classes in support vector machines is to weight C by classes  (a weight inversely proportional to class's frequency)
+
+```python
+# Create support vector classifier
+svc = SVC(kernel='linear', class_weight='balanced', C=1.0)
+```
+
+
 
