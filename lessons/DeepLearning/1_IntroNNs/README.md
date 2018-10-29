@@ -14,7 +14,7 @@ connection between probabilities (sigmoid or softmax values) and amount of error
 $$
 CrossEntropy = -\sum_{i=1}^n y_i \log(p_i) + (1-y_i) \log(1-p_i)
 $$
-Where $y_i$ is the one-hot  encoding of the labels and $p_i$ is the (softmax) probability of a class.
+Where y_i is the one-hot  encoding of the labels and p_i is the (softmax) probability of a class.
 
 __SSE (Sum of the Squared Errors)__:
 $$
@@ -95,7 +95,7 @@ The learning rate $\nu$ determines the size of steps.
 
    Very similar to Adadelta (does not use RMS of parameters to keep the units).
 
-   soothing factor ( for moving average) 0.9 
+   smoothing factor ( for moving average) 0.9 
 
    Default learning rate ($\nu=0.001$)
 
@@ -153,7 +153,6 @@ The learning rate $\nu$ determines the size of steps.
 
    links the parameters of the workers of synchronous SGD with an elastic  force, i.e. a center variable stored by the parameter server. 
 
-   
 
 #### Additional Strategies for optimizing SGD:
 

@@ -27,6 +27,42 @@ Randomness to reduce variance:
 
 using bootstrap and subset of features with decision trees makes a random forest
 
+```python
+from sklearn.ensemble import RandomForestClassifier
+# Create random forest classifer object that uses entropy
+clf = RandomForestClassifier(criterion='entropy')
+```
+
+##### Train Random Forest While Balancing Classes
+
+When using `RandomForestClassifier` a useful setting is `class_weight=balanced` wherein classes are automatically weighted inversely proportional to how frequently they appear in the data.
+
+```python
+clf = RandomForestClassifier(class_weight="balanced")
+```
+
+##### Select Important Features In Random Forest
+
+Select Features With Importance Greater Than Threshold. The higher the number, the more important the feature (all importance scores sum to one).
+
+```python
+from sklearn.feature_selection import SelectFromModel
+# Create random forest classifier
+clf = RandomForestClassifier(n_jobs=-1) # parallel training
+# Create object that selects features with importance greater than or equal to a threshold
+selector = SelectFromModel(clf, threshold=0.3)
+# Feature new feature matrix using selector
+X_important = selector.fit_transform(X, y)
+```
+
+##### Random Forest Regression
+
+```python
+from sklearn.ensemble import RandomForestRegressor
+```
+
+---
+
 #### Bagging algorithm
 
  A weak learner on each subset of data (bootstrap). Combine by max voting
@@ -57,8 +93,10 @@ model.predict(x_test)
 
 **Hyper-parameters:**
 
-- `base_estimator`: The model utilized for the weak learners (**Warning:** Don't forget to import the model that you decide to use for the weak learner).
-- `n_estimators`: The maximum number of weak learners used.
+- `base_estimator`: The model (learning algorithm) to use for the weak learners. This will almost always not needed to be changed  because by far the most common learner to use with AdaBoost is a  decision tree – this parameter’s default argument. (**Warning:** Don't forget to import the model that you decide to use for the weak learner).
+- `n_estimators`: The maximum number of weak learners  (iteratively) trained.
+- `learning_rate` is the contribution of each model to the weights and defaults to `1`.  Reducing the learning rate will mean the weights will be increased or  decreased to a small degree, forcing the model train slower (but sometimes resulting in better performance scores).
+- `loss` is exclusive to `AdaBoostRegressor` and sets the loss function to use when updating weights. This defaults to a linear loss function however can be changed to `square` or `exponential`.
 
 #### Gradient Boosting and XGBoost (eXtreme GBoost)
 
