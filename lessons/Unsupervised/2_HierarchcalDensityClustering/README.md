@@ -21,7 +21,7 @@ Same as two above while the distance between two clusters is defined as the aver
 
 New definition of distance between two clusters.
 
-1. find the central point between two clusters (average over each feature of all points in two clusters).
+1. find the central point $C$ between two clusters (average over each feature of all points in two clusters).
 2. Add up the squared distance of all points to this center point
 3. Reduce the variance inside each cluster from the sum
    1. find the center point of each cluster
