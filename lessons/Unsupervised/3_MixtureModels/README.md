@@ -22,8 +22,7 @@ Soft clustering algorithm: Every sample point belong to every cluster with diffe
 
 
 
-
-  Expectation of latent variable ( $Z$ ) belonging to cluster A : $E[Z_{1A}]$ 
+  Expectation of latent variable ( Z ) belonging to cluster A : E[Z_{1A}] 
 
 3. Re-estimate the Gaussian distributions - "Maximization": using membership values of previous step and calculate new parameters for the Gaussian clusters
 
