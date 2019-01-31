@@ -3,12 +3,14 @@
 **linear regression** is a linear approach to modelling the relationship between a scalar response (or dependent variable) and one or more explanatory variables (or independent variables)
 
 **Gradient descent** is a method to optimize your linear models.
+
 $$
 w_i \leftarrow  w_i - \alpha \frac{\partial}{\partial w_i}Error
 $$
-MAE: Mean absolute Error |y-\hat y|
 
-MSE: Mean Squared Error \frac{1}{2} (y-\hat y)^2
+MAE: Mean absolute Error $|y-\hat y|$
+
+MSE: Mean Squared Error $\frac{1}{2} (y-\hat y)^2$
 
 Exact solution can be found instead of gradient descent but it needs to compute the inverse of the n-by-n matrix
 
@@ -24,7 +26,7 @@ Note: different from Multivariate Linear Regression, in which you try to model t
 
 For relationships between variables that aren't linear
 
-Add higher degree features (x^2, x^3, ...) and use linear regression to find the best polynomial
+Add higher degree features ($x^2$, $x^3$, ...) and use linear regression to find the best polynomial
 
 ```python
 from sklearn.preprocessing import PolynomialFeatures
@@ -40,7 +42,7 @@ __Lasso__ is linear regression with L1 regularization
 
 __Ridge regression__ is linear regression with L2 norm regularization
 
-The hyperparameter, \alpha, lets us control how much we penalize the coefficients, with higher values of \alpha creating simpler modelers. The ideal value of \alpha should be tuned like any other hyperparameter. 
+The hyperparameter, $\alpha$, lets us control how much we penalize the coefficients, with higher values of $\alpha$ creating simpler modelers. The ideal value of $\alpha$ should be tuned like any other hyperparameter. 
 
 ```python
 from sklearn.linear_model import Lasso
